@@ -19,4 +19,5 @@ public class ClienteController {
 		model.addAttribute("clientes", clienteDao.findAll());
 		return "listar";
 	}
+
 }
