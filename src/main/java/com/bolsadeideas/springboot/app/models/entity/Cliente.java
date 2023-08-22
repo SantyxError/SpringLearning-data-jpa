@@ -5,10 +5,10 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.PrePersist;
 import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -16,8 +16,9 @@ import java.util.Date;
 @Entity
 @Table(name = "clientes")
 public class Cliente implements Serializable {
-	@Id private Long id;
+	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
 
 	private String nombre;
 	private String apellido;
@@ -25,14 +26,10 @@ public class Cliente implements Serializable {
 
 	@Column(name = "create_at")
 	@Temporal(TemporalType.DATE)
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date createAt;
 
 	private static final long serialVersionUID = 1L;
-
-	@PrePersist
-	public void prePersist() {
-		createAt = new Date();
-	}
 
 	public void setId(Long id) {
 		this.id = id;
