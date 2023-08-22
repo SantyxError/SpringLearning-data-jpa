@@ -19,4 +19,9 @@ public class ClienteDaoImpl implements IClienteDao {
 	@Override public List<Cliente> findAll() {
 		return em.createQuery("from Cliente").getResultList();
 	}
+
+	@Transactional
+	@Override public void save(Cliente cliente) {
+		em.persist(cliente);
+	}
 }
