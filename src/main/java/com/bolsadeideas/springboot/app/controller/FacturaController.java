@@ -21,18 +21,23 @@ public class FacturaController {
 	@Autowired
 	private IClienteService clienteService;
 
-	@GetMapping("/form{clienteId}")
+	@GetMapping("/form/{clienteId}")
 	public String crear(@PathVariable(value = "clienteId") Long clienteId, Map<String, Object> model, RedirectAttributes flash) {
 
 		Cliente cliente = clienteService.findOne(clienteId);
+
 		if (cliente == null) {
 			flash.addFlashAttribute("error", "El cliente no existe en la base de datos");
+			return "redirect:/listar";
 		}
+
 		Factura factura = new Factura();
 		factura.setCliente(cliente);
+
 		model.put("factura", factura);
 		model.put("titulo", "Crear Factura");
-		return "redirect:/listar";
+
+		return "factura/form";
 	}
 
 }
