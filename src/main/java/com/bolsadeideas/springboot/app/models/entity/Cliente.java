@@ -14,7 +14,6 @@ import jakarta.persistence.TemporalType;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.io.Serializable;
@@ -30,7 +29,6 @@ public class Cliente implements Serializable {
 	private Long id;
 
 	@NotEmpty
-	@Size(min = 4, max = 12)
 	private String nombre;
 
 	@NotEmpty
@@ -46,23 +44,21 @@ public class Cliente implements Serializable {
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date createAt;
 
-	@OneToMany(mappedBy = "cliente", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(mappedBy = "cliente", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<Factura> facturas;
-
-	public Cliente() {
-		facturas = new ArrayList<>();
-	}
 
 	private String foto;
 
-	private static final long serialVersionUID = 1L;
-
-	public void setId(Long id) {
-		this.id = id;
+	public Cliente() {
+		facturas = new ArrayList<Factura>();
 	}
 
 	public Long getId() {
 		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	public String getNombre() {
@@ -116,4 +112,10 @@ public class Cliente implements Serializable {
 	public void addFactura(Factura factura) {
 		facturas.add(factura);
 	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+
+	private static final long serialVersionUID = 1L;
 }
