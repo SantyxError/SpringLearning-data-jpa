@@ -43,7 +43,7 @@ public class FacturaController {
 		return "factura/form";
 	}
 
-	@GetMapping(value = "/cargar-productos/{term}", produces = { "application/json" })
+	@GetMapping(value = "/cargar-productos/{term}", produces = { "application/jason" })
 	public @ResponseBody List<Producto> cargarProductos(@PathVariable String term) {
 		return clienteService.findByNombre(term);
 	}

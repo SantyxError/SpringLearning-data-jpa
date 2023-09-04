@@ -1,8 +1,10 @@
 package com.bolsadeideas.springboot.app.models.service;
 
 import com.bolsadeideas.springboot.app.models.dao.IClienteDao;
+import com.bolsadeideas.springboot.app.models.dao.IFacturaDao;
 import com.bolsadeideas.springboot.app.models.dao.IProductoDao;
 import com.bolsadeideas.springboot.app.models.entity.Cliente;
+import com.bolsadeideas.springboot.app.models.entity.Factura;
 import com.bolsadeideas.springboot.app.models.entity.Producto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -19,6 +21,9 @@ public class ClienteServiceImpl implements IClienteService {
 
 	@Autowired
 	private IProductoDao productoDao;
+
+	@Autowired
+	private IFacturaDao facturaDao;
 
 	@Transactional(readOnly = true)
 	@Override public List<Cliente> findAll() {
@@ -47,5 +52,10 @@ public class ClienteServiceImpl implements IClienteService {
 	@Transactional(readOnly = true)
 	@Override public List<Producto> findByNombre(String term) {
 		return productoDao.findByNombreLikeIgnoreCase("%" + term + "%");
+	}
+
+	@Transactional
+	@Override public void saveFactura(Factura factura) {
+		facturaDao.save(factura);
 	}
 }
