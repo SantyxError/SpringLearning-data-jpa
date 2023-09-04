@@ -1,7 +1,9 @@
 package com.bolsadeideas.springboot.app.models.service;
 
 import com.bolsadeideas.springboot.app.models.dao.IClienteDao;
+import com.bolsadeideas.springboot.app.models.dao.IProductoDao;
 import com.bolsadeideas.springboot.app.models.entity.Cliente;
+import com.bolsadeideas.springboot.app.models.entity.Producto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -14,6 +16,9 @@ import java.util.List;
 public class ClienteServiceImpl implements IClienteService {
 	@Autowired
 	private IClienteDao clienteDao;
+
+	@Autowired
+	private IProductoDao productoDao;
 
 	@Transactional(readOnly = true)
 	@Override public List<Cliente> findAll() {
@@ -37,5 +42,10 @@ public class ClienteServiceImpl implements IClienteService {
 	@Transactional()
 	@Override public void delete(Long id) {
 		clienteDao.deleteById(id);
+	}
+
+	@Transactional(readOnly = true)
+	@Override public List<Producto> findByNombre(String term) {
+		return productoDao.findByNombreLikeIgnoreCase("%" + term + "%");
 	}
 }
