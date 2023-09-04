@@ -46,5 +46,13 @@ public class ItemFactura implements Serializable {
 		return cantidad.doubleValue() * producto.getPrecio();
 	}
 
+	public Producto getProducto() {
+		return producto;
+	}
+
+	public void setProducto(Producto producto) {
+		this.producto = producto;
+	}
+
 	@Serial private static final long serialVersionUID = 1L;
 }
